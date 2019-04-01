@@ -1,6 +1,8 @@
 {
   "name": "Drive-Mi",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular",
   "id": "54ea8f39"
 }
