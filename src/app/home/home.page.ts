@@ -1,10 +1,7 @@
-import { AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
+import { AfterContentInit, Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { LoadingController, ToastController, MenuController } from '@ionic/angular';
 import { __await } from 'tslib';
-import { AndroidPermissions } from '@ionic-native/android-permissions/ngx'
-
-
 
 @Component({
   selector: 'app-home',
@@ -25,18 +22,18 @@ export class HomePage implements OnInit {
   marker: {
     latitude: number;
     longitude: number;
-  };
+  }
 
   constructor(
-    private androidPermissions: AndroidPermissions,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
     private geolocation: Geolocation,
-    private menu: MenuController) {}
+    private menu: MenuController) {
+    }
+
  
   ngOnInit(): void {
     this.locateMe();
-    this.openMenu();
    }
   
     async locateMe() {
@@ -60,7 +57,6 @@ export class HomePage implements OnInit {
             message: error,
           });
         });
-
       let watch = this.geolocation.watchPosition();
       watch.subscribe((data) => {
         this.latitude = data.coords.latitude;
@@ -69,30 +65,7 @@ export class HomePage implements OnInit {
   }
 
   openMenu() {
-    this.menu.enable(true, 'first');
-    this.menu.open('first');
+    this.menu.toggle();
     console.log('menu is open');
   }
-
-
-   /*initLocalisation() {
-     this.geolocation.getCurrentPosition().then((resp) => {
-       this.latitude = resp.coords.latitude;
-       this.longitude = resp.coords.longitude;
-       console.log('trouvé');
-       this.marker = {
-        latitude: resp.coords.latitude,
-        longitude: resp.coords.longitude,
-       }
-       console.log(this.marker);
-     }).catch((error) => {
-        console.log('Impossible de localiser la position', error);
-     });
-
-     let watch = this.geolocation.watchPosition();
-     watch.subscribe((data) => {
-       this.latitude = data.coords.latitude;
-       this.longitude = data.coords.longitude;
-     });
-   } */
 }

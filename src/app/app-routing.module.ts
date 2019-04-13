@@ -11,16 +11,14 @@ const routes: Routes = [
     path: 'home',
     loadChildren: './home/home.module#HomePageModule'
   },
-  {
-    path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
-  },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'map', loadChildren: './pages/map/map.module#MapPageModule' },
   { path: 'results', loadChildren: './pages/results/results.module#ResultsPageModule' },
   { path: 'payment', loadChildren: './pages/payment/payment.module#PaymentPageModule' },
   { path: 'account', loadChildren: './pages/account/account.module#AccountPageModule' },
-  { path: 'cards', loadChildren: './pages/cards/cards.module#CardsPageModule' }
+  { path: 'cards', loadChildren: './pages/cards/cards.module#CardsPageModule' },
+  { path: 'sign-in', loadChildren: './pages/auth/sign-in/sign-in.module#SignInPageModule' },
+  { path: 'sign-up', loadChildren: './pages/auth/sign-up/sign-up.module#SignUpPageModule' }
 ];
 
 @NgModule({

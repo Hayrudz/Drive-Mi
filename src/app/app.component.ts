@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, MenuController, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import * as firebase from 'firebase';
+import { HomePage } from './home/home.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,23 +14,56 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 export class AppComponent {
   public appPages = [
     {
-      title: 'Home',
+      title: 'Accueil',
       url: '/home',
-      icon: 'home'
+      icon: 'car'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
-    }
+      title: 'Mon Compte',
+      url: '/account',
+      icon: 'person'
+    },
   ];
 
-  constructor(
-    private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar
-  ) {
-    this.initializeApp();
+  isAuth: boolean;
+  homePage: any = HomePage;
+
+  @ViewChild('content') content: NavController;
+
+  constructor(private platform: Platform,
+              private statusBar: StatusBar,
+              private splashScreen: SplashScreen,
+              private router: Router,
+              private menuCtrl: MenuController) {
+    platform.ready().then(() => {
+      statusBar.styleDefault();
+      splashScreen.hide();
+      let config = {
+        apiKey: "AIzaSyBr5ghxXevgtzogP-5ORGJjfbjOSUOYcoc",
+        authDomain: "drive-mi.firebaseapp.com",
+        databaseURL: "https://drive-mi.firebaseio.com",
+        projectId: "drive-mi",
+        storageBucket: "drive-mi.appspot.com",
+        messagingSenderId: "153781528890"
+      };
+      firebase.initializeApp(config);
+      firebase.auth().onAuthStateChanged(
+        (user) => {
+          if (user) {
+            this.isAuth = true;
+            this.router.navigateByUrl('/home');
+          } else {
+            this.isAuth = false;
+            this.router.navigateByUrl('/sign-in');
+          }
+        }
+      );
+    });
+  }
+
+  onNavigate(page: any, data?) {
+    this.router.navigateByUrl(page, data ? data : null);
+    this.menuCtrl.close();
   }
 
   initializeApp() {
@@ -35,5 +71,9 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+  onDeconnect() {
+    firebase.auth().signOut();
   }
 }

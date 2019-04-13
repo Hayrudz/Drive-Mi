@@ -1,6 +1,6 @@
 <ion-header>
     <ion-fab vertical="top" horizontal="end" slot="fixed">
-        <ion-fab-button menuToggle color="primary" (click)="openMenu()">
+        <ion-fab-button menuToggle="right" color="primary" (click)="openMenu()">
           <ion-icon name="person"></ion-icon>
         </ion-fab-button>
       </ion-fab>
@@ -11,12 +11,22 @@
            [longitude]="longitude"
            [zoom]="15"
            [zoomControl]="false"
-           [streetViewControl]="false">
+           [streetViewControl]="false"
+           >
     <agm-marker *ngIf="marker"
                 [latitude]="marker.latitude"
                 [longitude]="marker.longitude">
     </agm-marker>
   </agm-map>
-  
+
+  <ion-card color="light">
+      <ion-card-content>
+        <ion-searchbar placeholder="Départ"></ion-searchbar>
+        <ion-searchbar placeholder="Arrivé"></ion-searchbar>
+      </ion-card-content>
+      <ion-button color="primary">C'est partit !</ion-button>
+
+    </ion-card>
+
 </ion-content>
 
