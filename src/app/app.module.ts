@@ -9,6 +9,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
 
@@ -28,7 +29,8 @@ import { AuthService } from './service/auth.service';
     ReactiveFormsModule,
     FormsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDWgxIIVbdWkR1SVYnNh35vD4d61hHqZ3I'
+      apiKey: 'AIzaSyDWgxIIVbdWkR1SVYnNh35vD4d61hHqZ3I',
+     // libraries: ["places"]
     })
   ],
   providers: [
@@ -39,6 +41,7 @@ import { AuthService } from './service/auth.service';
     LocationAccuracy,
     AndroidPermissions,
     AuthService,
+    NativeGeocoder,
     Geolocation,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

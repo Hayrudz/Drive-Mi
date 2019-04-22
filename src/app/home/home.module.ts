@@ -13,7 +13,8 @@ import { HomePage } from './home.page';
     FormsModule,
     IonicModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDWgxIIVbdWkR1SVYnNh35vD4d61hHqZ3I'
+      apiKey: 'AIzaSyDWgxIIVbdWkR1SVYnNh35vD4d61hHqZ3I',
+      //libraries: ["places"]
     }),
     RouterModule.forChild([
       {

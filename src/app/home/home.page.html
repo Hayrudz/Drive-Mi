@@ -9,7 +9,7 @@
 <ion-content>
   <agm-map [latitude]="latitude"
            [longitude]="longitude"
-           [zoom]="15"
+           [zoom]="zoom"
            [zoomControl]="false"
            [streetViewControl]="false"
            >
@@ -21,10 +21,20 @@
 
   <ion-card color="light">
       <ion-card-content>
-        <ion-searchbar placeholder="Départ"></ion-searchbar>
-        <ion-searchbar placeholder="Arrivé"></ion-searchbar>
+        <ion-searchbar [(ngModel)]="navService.pickupAutocomplete.query" [showCancelButton]="true" (ionInput)="pickupLocation()"  placeholder="Départ"></ion-searchbar>
+        <ion-list [hidden]="navService.pickupAutocompleteItems.length == 0">
+            <ion-item *ngFor="let item of navService.pickupAutocompleteItems" tappable (click)="pickupItem(item)">
+              {{ item }}
+            </ion-item>
+          </ion-list>
+          <ion-searchbar [(ngModel)]="navService.dropoffAutocomplete.query" [showCancelButton]="true" (ionInput)="dropoffLocation()"  placeholder="Arrivée"></ion-searchbar>
+           <ion-list [hidden]="navService.dropoffAutocompleteItems.length == 0">
+               <ion-item *ngFor="let item of navService.dropoffAutocompleteItems" tappable (click)="dropoffItem(item)">
+                 {{ item }}
+               </ion-item>
+             </ion-list>
       </ion-card-content>
-      <ion-button color="primary">C'est partit !</ion-button>
+      <ion-button color="primary" href="https://m.uber.com/ul/?action=setPickup&client_id=ScALLER08n4c60BhugDDl-t-82QaI7Fm&product_id=5b451799-a7c3-480e-8720-891f2b51abb4&pickup[formatted_address]=Paris%2C%20France&pickup[latitude]={{ navService.pickup.latitude }}&pickup[longitude]={{ navService.pickup.longitude }}&dropoff[formatted_address]=Lyon%2C%20France&dropoff[latitude]={{ navService.dropoff.latitude }}&dropoff[longitude]={{ navService.dropoff.longitude }}">Drive mi</ion-button>
 
     </ion-card>
 
