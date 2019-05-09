@@ -1,9 +1,19 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>results</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Résultats</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card>
+      <ion-card-title>Uber X</ion-card-title>
+      <ion-img src="../assets/vtc/uber-logo.png"></ion-img>
+      <ion-text class="price">€</ion-text>
+      <ion-text class="time">min</ion-text>
+      <ion-item></ion-item>
+      <ion-icon name="body"></ion-icon>
+      <ion-text>4</ion-text>
+      <ion-button color="primary" href="https://m.uber.com/ul/?action=setPickup&client_id=ScALLER08n4c60BhugDDl-t-82QaI7Fm&product_id=5b451799-a7c3-480e-8720-891f2b51abb4&pickup[formatted_address]=Paris%2C%20France&pickup[latitude]={{ navService.pickup.latitude }}&pickup[longitude]={{ navService.pickup.longitude }}&dropoff[formatted_address]=Lyon%2C%20France&dropoff[latitude]={{ navService.dropoff.latitude }}&dropoff[longitude]={{ navService.dropoff.longitude }}">Drive mi</ion-button>
+  </ion-card>
 
 </ion-content>

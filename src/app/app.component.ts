@@ -23,6 +23,10 @@ export class AppComponent {
       url: '/account',
       icon: 'person'
     },
+    {
+      title: 'results',
+      url: '/results',
+    }
   ];
 
   isAuth: boolean;

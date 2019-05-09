@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core/core.module';
 
 
@@ -28,6 +29,7 @@ import { AuthService } from './service/auth.service';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDWgxIIVbdWkR1SVYnNh35vD4d61hHqZ3I',
      // libraries: ["places"]
@@ -38,6 +40,7 @@ import { AuthService } from './service/auth.service';
     SplashScreen,
     ReactiveFormsModule,
     FormsModule,
+    HttpClient,
     LocationAccuracy,
     AndroidPermissions,
     AuthService,

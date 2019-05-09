@@ -19,10 +19,10 @@ export class HomePage implements OnInit {
 
   latitude: number;
   longitude: number;
-  marker : {
+  marker: {
     latitude: number
     longitude: number
-    }
+    };
   pickupAutoItems  = [];
   pickupAuto = {
     query: ''
@@ -34,10 +34,10 @@ export class HomePage implements OnInit {
   markers = [];
   zoom: number;
 
-  geo: any
+  geo: any;
 
   service = new google.maps.places.AutocompleteService();
-  Uber : any;
+  Uber: any;
 
 
   constructor(
@@ -45,25 +45,25 @@ export class HomePage implements OnInit {
     private toastCtrl: ToastController,
     private geolocation: Geolocation,
     private menu: MenuController,
-    private navService: NavService) {
+    public navService: NavService) {
       navService.pickupAutocompleteItems = [];
       navService.pickupAutocomplete = {
         query: ''
-      }
+      };
 
       navService.dropoffAutocompleteItems = [];
       navService.dropoffAutocomplete = {
         query: ''
-      }
+      };
 
     }
- 
+
   ngOnInit() {
     this.locateMe();
    }
-  
+
    async locateMe() {
-    let loader = await this.loadingCtrl.create({
+    const loader = await this.loadingCtrl.create({
        message: 'Où vous cachez vous..?',
        duration: 9000
      });
@@ -75,7 +75,7 @@ export class HomePage implements OnInit {
          this.marker = {
            latitude: resp.coords.latitude,
            longitude: resp.coords.longitude,
-         }
+         };
          this.zoom = 17;
          console.log(this.marker.latitude, this.marker.longitude);
        }).catch(
@@ -85,7 +85,7 @@ export class HomePage implements OnInit {
              message: error,
            });
          });
-       let watch = this.geolocation.watchPosition();
+       const watch = this.geolocation.watchPosition();
        watch.subscribe((data) => {
          this.latitude = data.coords.latitude;
          this.longitude = data.coords.longitude;
