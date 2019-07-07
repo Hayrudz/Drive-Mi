@@ -16,3 +16,13 @@ ion-card {
 ion-button {
   width: 100%;
 }
+
+.drivers{
+  width: 130px;
+  min-height: 100px;
+  max-height: 100%;
+  position: absolute;
+  top: 5% !important;
+  left: 5% !important;
+  background: white;
+}

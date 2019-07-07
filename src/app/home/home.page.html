@@ -19,22 +19,30 @@
     </agm-marker>
   </agm-map>
 
+  <div class="drivers" *ngIf="times">
+    <h6 *ngFor="let item of times.times">{{item?.display_name}}&nbsp;&nbsp;{{item?.estimate/60}} min</h6>
+    <h6 *ngIf="leCabServices.lengt !== 0">Others</h6>
+    <h6 *ngFor="let item of leCabServices" style="font-weight: 100;">{{item}}</h6>
+  </div>
+
   <ion-card color="light">
       <ion-card-content>
-        <ion-searchbar [(ngModel)]="navService.pickupAutocomplete.query" [showCancelButton]="true" (ionInput)="pickupLocation()"  placeholder="Départ"></ion-searchbar>
-        <ion-list [hidden]="navService.pickupAutocompleteItems.length == 0">
+        <ion-searchbar [(ngModel)]="navService.pickupAutocomplete.query" [showCancelButton]="true" (ionInput)="pickupLocation()" (ionBlur)="pickupBlur()" (ionFocus)="pickupFocus()"  placeholder="Départ"></ion-searchbar>
+        <ion-list [hidden]="navService.pickupAutocompleteItems.length == 0 || disablePickup === true">
             <ion-item *ngFor="let item of navService.pickupAutocompleteItems" tappable (click)="pickupItem(item)">
               {{ item }}
             </ion-item>
           </ion-list>
-          <ion-searchbar [(ngModel)]="navService.dropoffAutocomplete.query" [showCancelButton]="true" (ionInput)="dropoffLocation()"  placeholder="Arrivée"></ion-searchbar>
-        <ion-list [hidden]="navService.dropoffAutocompleteItems.length == 0">
+          <ion-searchbar [(ngModel)]="navService.dropoffAutocomplete.query" [showCancelButton]="true" (ionInput)="dropoffLocation()"  placeholder="Arrivée"
+          (ionBlur)="dropoffBlur()" (ionFocus)="dropoffFocus()"
+          ></ion-searchbar>
+        <ion-list [hidden]="navService.dropoffAutocompleteItems.length == 0 || disabledropoff === true">
             <ion-item *ngFor="let item of navService.dropoffAutocompleteItems" tappable (click)="dropoffItem(item)">
               {{ item }}
             </ion-item>
         </ion-list>
       </ion-card-content>
-        <ion-button color="primary" [routerLink]="['/results']">drive Mi</ion-button>
+        <ion-button color="primary" (click)="forward()">drive Mi</ion-button>
     </ion-card>
 
 </ion-content>

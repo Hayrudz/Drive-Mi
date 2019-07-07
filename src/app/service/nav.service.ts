@@ -2,6 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { ToastController, LoadingController, MenuController, ModalController } from '@ionic/angular';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { LatLngBounds } from '@agm/core/map-types';
+import { HelperService } from './helper.service';
 
 declare var google;
 
@@ -40,6 +41,7 @@ export class NavService {
     public toastCtrl: ToastController,
     public geolocation: Geolocation,
     public zone: NgZone,
+    private helper: HelperService,
     public modalCtrl: ModalController) { 
       this.dropoffAutocompleteItems = [];
       this.dropoffAutocomplete = {
@@ -133,6 +135,7 @@ export class NavService {
       longitude: this.longitude
     }
     console.log("dropoff : ", this.dropoff);
+    localStorage.setItem('dropoff',JSON.stringify(this.dropoff))
     this.zoom = 17;
     this.markers.push(this.marker);
   });
@@ -185,8 +188,38 @@ pickupUpdateSearch() {
     longitude: this.longitude
   }
   console.log("pickup : ", this.pickup);
+  localStorage.setItem('pickup',JSON.stringify(this.pickup));
     this.zoom = 17;
     this.markers.push(this.marker);
   });
   }
+
+  getGeoLocation(lat: number, lng: number) {
+    if (navigator.geolocation) {
+        let geocoder = new google.maps.Geocoder();
+        let latlng = new google.maps.LatLng(lat, lng);
+        let request = { latLng: latlng };
+    
+        geocoder.geocode(request, (results, status) => {
+          if (status == google.maps.GeocoderStatus.OK) {
+            let result = results[0];
+            let rsltAdrComponent = result.address_components;
+            let resultLength = rsltAdrComponent.length;
+            console.log(rsltAdrComponent)
+            if (result != null) {
+              // let  buildingNum = rsltAdrComponent.find(x => x.types == 'street_number').long_name;
+              // let streetName = rsltAdrComponent.find(x => x.types == 'route').long_name;
+              let code = rsltAdrComponent.filter(data => data.types[0]==="postal_code");
+              if(code.length >0){
+                localStorage.setItem('code',code[0].long_name);
+                this.helper.setCode(code[0].long_name);
+              }
+              console.log(code);
+            } else {
+              alert("No address available!");
+            }
+          }
+        });
+    }
+    }
 }

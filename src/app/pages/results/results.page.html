@@ -5,15 +5,33 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-      <ion-card-title>Uber X</ion-card-title>
+  <ion-card *ngFor="let item of price"> 
+      <ion-card-title>{{item?.display_name}}</ion-card-title>
       <ion-img src="../assets/vtc/uber-logo.png"></ion-img>
-      <ion-text class="price">€</ion-text>
-      <ion-text class="time">min</ion-text>
+      <h4><span style="float:left;">Price:</span><span style="float:right;">{{item?.estimate}}</span></h4>
+      <br>
+      <h4><span style="float: left;">Time:</span><span style="float: right;">{{getTime(item?.display_name)}}</span></h4>
       <ion-item></ion-item>
       <ion-icon name="body"></ion-icon>
       <ion-text>4</ion-text>
-      <ion-button color="primary" href="https://m.uber.com/ul/?action=setPickup&client_id=ScALLER08n4c60BhugDDl-t-82QaI7Fm&product_id=5b451799-a7c3-480e-8720-891f2b51abb4&pickup[formatted_address]=Paris%2C%20France&pickup[latitude]={{ navService.pickup.latitude }}&pickup[longitude]={{ navService.pickup.longitude }}&dropoff[formatted_address]=Lyon%2C%20France&dropoff[latitude]={{ navService.dropoff.latitude }}&dropoff[longitude]={{ navService.dropoff.longitude }}">Drive mi</ion-button>
+      <ion-button color="primary" href="https://m.uber.com/ul/?action=setPickup&client_id=ScALLER08n4c60BhugDDl-t-82QaI7Fm&product_id={{item?.product_id}}&pickup[formatted_address]=Paris%2C%20France&pickup[latitude]={{ navService.pickup.latitude }}&pickup[longitude]={{ navService.pickup.longitude }}&dropoff[formatted_address]=Lyon%2C%20France&dropoff[latitude]={{ navService.dropoff.latitude }}&dropoff[longitude]={{ navService.dropoff.longitude }}">Drive mi</ion-button>
   </ion-card>
+  <ion-card *ngIf="cab"> 
+    <ion-card-title>Le Cab</ion-card-title>
+    <ion-img src="../assets/lecab.png"></ion-img>
+    <h4><span style="float:left;">Price:</span><span style="float:right;">&euro;{{cab?.price}}</span></h4>
+    <br>
+    <h4><span style="float: left;">Time:</span><span style="float: right;">{{cab?.delay}}</span></h4>
+    <ion-item></ion-item>
+    <ion-icon name="body"></ion-icon>
+    <ion-text>4</ion-text>
+    <ion-button color="primary" (click)="book()" >Book</ion-button>
+</ion-card>
+
+  <!-- <ion-text class="price">{{item?.estimate}}</ion-text>
+      <ion-text class="time">{{getTime(item?.display_name)}}</ion-text> -->
+
+  <!--       <ion-button color="primary" href="https://m.uber.com/ul/?action=setPickup&client_id=ScALLER08n4c60BhugDDl-t-82QaI7Fm&product_id=5b451799-a7c3-480e-8720-891f2b51abb4&pickup[formatted_address]=Paris%2C%20France&pickup[latitude]={{ navService.pickup.latitude }}&pickup[longitude]={{ navService.pickup.longitude }}&dropoff[formatted_address]=Lyon%2C%20France&dropoff[latitude]={{ navService.dropoff.latitude }}&dropoff[longitude]={{ navService.dropoff.longitude }}">Drive mi</ion-button>
+ -->
 
 </ion-content>

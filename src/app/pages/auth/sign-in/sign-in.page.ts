@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../service/auth.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UberService } from 'src/app/service/uber.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -16,9 +17,12 @@ export class SignInPage implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder, private uber: UberService) { }
 
   ngOnInit() {
+
+
+
     this.initForm();
   }
 

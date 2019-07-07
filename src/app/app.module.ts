@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core/core.module';
 
 
@@ -17,6 +17,7 @@ import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './service/auth.service';
+import { RequestInterceptor } from './http-interceptor.service';
 
 
 
@@ -46,7 +47,12 @@ import { AuthService } from './service/auth.service';
     AuthService,
     NativeGeocoder,
     Geolocation,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -7,6 +7,7 @@ import { AuthService } from '../../service/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HomePage } from 'src/app/home/home.page';
 import { Router } from '@angular/router';
+import { UberService } from 'src/app/service/uber.service';
 
 @Component({
   selector: 'app-login',
@@ -22,10 +23,12 @@ export class LoginPage implements OnInit {
                 private menuCtrl: MenuController,
                 private navCtrl: NavController,
                 private router: Router,
-                private formBuilder: FormBuilder) {}
+                private formBuilder: FormBuilder,
+                private uber: UberService) {}
   
     ngOnInit() {
     //  this.initForm();
+
     }
     
     onToggleMenu() {
